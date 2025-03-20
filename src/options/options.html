@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extension Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Extension Options</h1>
+      <p>Configure your extension settings</p>
+    </header>
+    
+    <main>
+      <section class="card">
+        <h2>General Settings</h2>
+        
+        <div class="form-group">
+          <label for="enable-extension">
+            <span>Enable Extension</span>
+            <label class="toggle">
+              <input type="checkbox" id="enable-extension" checked>
+              <span class="slider round"></span>
+            </label>
+          </label>
+          <small>Turn the extension on or off</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="notification-setting">
+            <span>Show Notifications</span>
+            <label class="toggle">
+              <input type="checkbox" id="notification-setting" checked>
+              <span class="slider round"></span>
+            </label>
+          </label>
+          <small>Receive notifications from the extension</small>
+        </div>
+      </section>
+      
+      <section class="card">
+        <h2>Advanced Settings</h2>
+        
+        <div class="form-group">
+          <label for="api-endpoint">API Endpoint</label>
+          <input type="text" id="api-endpoint" placeholder="https://api.example.com">
+          <small>The base URL for API requests</small>
+        </div>
+        
+        <div class="form-group">
+          <label for="refresh-interval">Refresh Interval (minutes)</label>
+          <input type="number" id="refresh-interval" min="1" max="60" value="30">
+          <small>How often the extension should refresh data</small>
+        </div>
+      </section>
+      
+      <div class="buttons-container">
+        <button id="save-btn" class="btn primary">Save Settings</button>
+        <button id="reset-btn" class="btn secondary">Reset to Default</button>
+      </div>
+    </main>
+    
+    <footer>
+      <p>Extension Settings v1.0.0</p>
+    </footer>
+  </div>
+  
+  <script src="options.js"></script>
+</body>
+</html> 
