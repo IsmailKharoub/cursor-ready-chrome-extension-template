@@ -35,8 +35,8 @@ A modern template for building Chrome extensions using TypeScript, with a modula
 
 ### Prerequisites
 
-- Node.js (v14.x or later recommended)
-- npm (v6.x or later recommended)
+- Node.js (v18.x or later recommended)
+- npm (v10.x or later recommended)
 - [Cursor AI](https://cursor.sh/) editor (recommended for optimal development experience)
 
 ### Installation
