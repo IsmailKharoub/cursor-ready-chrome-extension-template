@@ -1,0 +1,173 @@
+ {
+  "instructions": "This is a Chrome extension template using TypeScript and Webpack. It follows a modular architecture with separate components for popup, background script, and options. The extension uses Manifest V3 and follows standard Chrome extension patterns. When generating or modifying code, maintain the existing architecture pattern and follow TypeScript best practices.",
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.html",
+    "src/**/*.css",
+    "src/manifest.json"
+  ],
+  "exclude": [
+    "node_modules/",
+    "dist/",
+    "**/*.test.ts"
+  ],
+  "contextWindow": 30000,
+  "contextRules": [
+    {
+      "name": "Project Structure",
+      "description": "The extension is organized into several key components in the src directory:",
+      "details": [
+        "background/: Contains the service worker that runs in the background",
+        "popup/: Contains the UI that appears when clicking the extension icon",
+        "options/: Contains the settings page for the extension",
+        "models/: Contains TypeScript interfaces and type definitions",
+        "services/: Contains reusable service classes for API calls and other functionality"
+      ]
+    },
+    {
+      "name": "Key Concepts",
+      "description": "This extension template uses several Chrome extension concepts and patterns:",
+      "details": [
+        "Message passing: Communication between different parts of the extension via chrome.runtime.sendMessage",
+        "Storage API: Using chrome.storage.local for persisting data",
+        "TypeScript: Strongly typed programming for better code quality",
+        "Webpack: For bundling and development workflow"
+      ]
+    },
+    {
+      "name": "Size and Performance Considerations",
+      "description": "Chrome extensions have specific limitations and performance considerations:",
+      "details": [
+        "Service worker (background script) is limited to 4MB of JS",
+        "Service workers have limited execution time before being terminated",
+        "Total extension package size should be kept under 10MB (ideally much less)",
+        "Avoid large dependencies to keep extension size small",
+        "Use event-driven patterns to prevent unnecessary background processing",
+        "The background service worker can be unloaded after inactivity (30 seconds by default)"
+      ]
+    },
+    {
+      "name": "Extensibility Patterns",
+      "description": "This template is designed for extensibility using these patterns:",
+      "details": [
+        "Use the models/types.ts file for all shared type definitions and enums",
+        "Add new message types to MessageType enum when creating new communication channels",
+        "Create new service classes in the services directory for distinct functionality domains",
+        "Follow the dependency injection pattern used in existing services",
+        "Store settings as structured objects in chrome.storage.local",
+        "Use feature-based organization if extending beyond basic functionality"
+      ]
+    },
+    {
+      "name": "Chrome API Usage",
+      "description": "The template demonstrates best practices for Chrome API usage:",
+      "details": [
+        "Request permissions only when needed in manifest.json",
+        "Handle errors from all Chrome API calls",
+        "Use async/await with Chrome APIs via Promises",
+        "Keep API interactions isolated in specific modules",
+        "Chrome API calls should be wrapped in try/catch blocks"
+      ]
+    },
+    {
+      "name": "Security Considerations",
+      "description": "Security practices to follow in this template:",
+      "details": [
+        "Avoid using innerHTML to prevent XSS vulnerabilities",
+        "Sanitize data received from external sources",
+        "Use content security policy in manifest.json",
+        "Avoid eval() and new Function()",
+        "Only request the minimum required permissions"
+      ]
+    },
+    {
+      "name": "Decoupling Guidelines",
+      "description": "The template follows these principles for decoupling components:",
+      "details": [
+        "Component isolation: Each module should have a single responsibility",
+        "Interface-based communication: Components should interact through clearly defined interfaces",
+        "Dependency injection: Services should receive dependencies rather than creating them",
+        "Message-driven architecture: Components communicate via typed messages rather than direct references",
+        "State management: State should be managed in specific locations (storage or background) rather than spread across components",
+        "Shared models: Use shared type definitions to maintain consistency across decoupled components",
+        "Event-driven communication: Use Chrome's event system to decouple event producers from consumers"
+      ]
+    }
+  ],
+  "recommendations": [
+    "When adding new functionality, consider which component it belongs to",
+    "When working with Chrome APIs, use the appropriate types from @types/chrome",
+    "For UI changes, maintain the existing structure of HTML/CSS",
+    "Add new message types to the MessageType enum in models/types.ts",
+    "Use services directory for shared business logic",
+    "Keep service worker logic minimal to prevent termination issues",
+    "Prefer using local storage over session storage for persistence",
+    "Lazy-load heavy resources only when needed",
+    "Structure message passing with clear type definitions",
+    "Test your extension in incognito mode and with various permissions settings",
+    "Consider implementing error tracking for production extensions",
+    "Avoid direct references between components; use message passing instead",
+    "Create facades for third-party libraries to allow for easier replacement",
+    "Use composition over inheritance for extensibility"
+  ],
+  "architecture": {
+    "description": "This template follows a modular architecture with clear separation of concerns",
+    "components": [
+      {
+        "name": "Background Service Worker",
+        "responsibility": "Handles events, manages state, and coordinates between extension components even when popup is closed",
+        "pattern": "Event-driven programming with message passing"
+      },
+      {
+        "name": "Popup UI",
+        "responsibility": "Provides user interface for primary extension functionality",
+        "pattern": "UI component with event handlers and message communication to background"
+      },
+      {
+        "name": "Options Page",
+        "responsibility": "Allows users to configure extension settings",
+        "pattern": "Form-based UI that saves settings to chrome.storage"
+      },
+      {
+        "name": "Services",
+        "responsibility": "Provide reusable functionality like API calls, data processing",
+        "pattern": "Class-based service modules with dependency injection"
+      },
+      {
+        "name": "Models",
+        "responsibility": "Define types and interfaces used across the extension",
+        "pattern": "TypeScript interfaces, types, and enums for shared data structures"
+      }
+    ]
+  },
+  "decouplingPatterns": {
+    "description": "Specific patterns used in this template to ensure loose coupling between components",
+    "patterns": [
+      {
+        "name": "Message-based Communication",
+        "description": "Components communicate through typed messages via chrome.runtime.sendMessage",
+        "implementation": "Use the MessageType enum in models/types.ts to define all message types",
+        "benefit": "Allows components to evolve independently as long as the message contract is maintained"
+      },
+      {
+        "name": "Storage-based State Sharing",
+        "description": "Components share state through chrome.storage rather than direct references",
+        "implementation": "Define storage schemas as interfaces in models/types.ts",
+        "benefit": "Provides a single source of truth and decouples state producers from consumers"
+      },
+      {
+        "name": "Service Abstraction",
+        "description": "Business logic is encapsulated in service classes with clear interfaces",
+        "implementation": "Create service classes in the services directory with dependency injection",
+        "benefit": "Services can be mocked for testing and replaced without affecting consumers"
+      },
+      {
+        "name": "Event Subscription",
+        "description": "Components subscribe to Chrome events rather than being directly called",
+        "implementation": "Use Chrome's event listeners (e.g., chrome.runtime.onMessage)",
+        "benefit": "Event producers don't need to know about event consumers"
+      }
+    ]
+  }
+}
