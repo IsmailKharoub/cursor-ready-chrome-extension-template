@@ -1,13 +1,24 @@
 {
   "name": "chrome-extension-template",
   "version": "1.0.0",
-  "description": "A template for Chrome extensions using TypeScript",
+  "description": "A Cursor AI-ready template for Chrome extensions using TypeScript",
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch"
   },
-  "author": "",
+  "author": "Ismail Kharoub",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IsmailKharoub/cursor-ready-chrome-extension-template.git"
+  },
+  "keywords": [
+    "chrome-extension",
+    "typescript",
+    "cursor-ai",
+    "template",
+    "webpack"
+  ],
   "devDependencies": {
     "@types/chrome": "^0.0.246",
     "copy-webpack-plugin": "^11.0.0",
